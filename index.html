@@ -1,1 +1,116 @@
-Hello world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>MetaGame Frontend Cheatsheet</title>
+<meta name="viewport" content="width=device-width" />
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+    <h1>What's the idea</h1>
+
+    <ul>
+        <li>Refer to this when using colours in frontend dev</li>
+    </ul>
+    
+    <h2>Notes</h2>
+    <ul>
+        <li>MetaColors override ChakraColors e.g. the pinks are different</li>
+        <li>Use the colour names in the Chakra component props e.g. <code>bgColor="pink.500"</code></li>
+        <li>The colours are also available for use as CSS variables<br>e.g. 
+            <ul>
+            <li><code>pink.500</code> equals <code>--chakra-colors-pink-500</code></li>
+            <li><code>purpleTag70</code> equals <code>--chakra-colors-purpleTag70</code></li>
+            </ul>
+        </li>
+    </ul>
+
+    <button id="toggleButton" onClick="toggleColors();">Flip colours light/dark</button>
+
+
+    <div class="color-wrapper">
+
+        <div class="colors-list-header" id="MetaColors">
+            <h2>MetaColors</h2>
+        </div>
+        
+        <div class="colors-list-header" id="ChakraColors">
+            <h2>ChakraColors</h2>
+        </div>
+        
+    </div>
+
+
+<script>
+/**
+ * Functions and what-not
+ */
+ 
+/**
+ * Toggle light/dark on the colors
+ */
+function toggleColors() {
+	const target = document.getElementsByClassName("color-wrapper")[0]; // get the first one
+	target.classList.toggle("flip-colors");	
+}
+
+/**
+ * A function to go through the colors and print out names/hex/rgb and a color swatch
+ * https://stackoverflow.com/questions/2549320/looping-through-an-object-tree-recursively
+ * https://stackoverflow.com/questions/15690706/recursively-looping-through-an-object-to-build-a-property-list
+ * But it only deals with two levels deep to save hassles with the print
+ */
+function eachRecursive( obj, targetId ) {
+
+	let str = '';
+	
+	for ( var k in obj ) {
+	
+		if( typeof obj[k] == "object" && obj[k] !== null ){
+			// hacky, only going two deep in recursion so whatever
+			for ( var l in obj[k] ) {
+				str += '<div class="color-container"><div>';
+				str += k+'.'+l+'<br><small>'+obj[k][l]+'</small></div><div class="color" style="background-color: '+obj[k][l]+'">&nbsp;</div>';
+				str += "</div>";			
+			}
+						
+		} else {
+			str += '<div class="color-container"><div>';
+			str += k+'<br><small>'+obj[k]+'</small></div><div class="color" style="background-color: '+obj[k]+'">&nbsp;</div>';
+			str += "</div>";
+		}		
+		
+	}
+	
+	const target = document.getElementById( targetId );
+	target.insertAdjacentHTML("afterend", str);
+} 
+
+</script>
+
+<script type="module">
+/**
+ * Import the colors
+ */
+import { metaColors } from "./js/MetaColors.js";
+import { chakraColors } from "./js/ChakraColors.js";
+
+/**
+ * Print the colors when the DOM is ready
+ * https://stackoverflow.com/questions/4842590/how-to-run-a-function-when-the-page-is-loaded
+ */
+document.addEventListener('DOMContentLoaded', function() {
+	// Print the MetaColors
+	// inserted in the HTML after an element with id="MetaColors"
+	eachRecursive( metaColors, "MetaColors" );
+	
+	// Print the ChakraColors
+	// inserted in the HTML after an element with id="ChakraColors"
+	eachRecursive( chakraColors, "ChakraColors" );
+    
+}, false);
+</script>
+</body>
+</html>

@@ -12,7 +12,7 @@
     <h1>What's the idea</h1>
 
     <ul>
-        <li>Refer to this when using colours in frontend dev</li>
+        <li>Refer to this when using <a href="#MetaBreakpoints">breakpoints</a> / <a href="#MetaFontSizes">font-sizes</a> / <a href="#colors">colours</a> in frontend dev</li>
     </ul>
     
     <h2>Notes</h2>
@@ -27,20 +27,42 @@
         </li>
     </ul>
 
-    <button id="toggleButton" onClick="toggleColors();">Flip colours light/dark</button>
+	<!-- breakpoints and fonts are in https://github.com/MetaFam/TheGame/blob/develop/packages/design-system/src/theme/index.ts -->
 
+	<div class="basic-wrapper" id="MetaBreakpoints">
+		<h1>Breakpoints</h1>
+		
+	</div>
 
-    <div class="color-wrapper">
+	<div class="basic-wrapper" id="MetaFontSizes">
+		<h1>Font sizes</h1>
+		
+	</div>
+	
 
-        <div class="colors-list-header" id="MetaColors">
-            <h2>MetaColors</h2>
-        </div>
+	<div class="basic-wrapper" id="colors">
+    
+		<h1>Colours</h1>
+				
+		<button id="toggleButton" onClick="toggleColors();">Flip colours light/dark</button>
+			
+
+		<div class="color-wrapper">
+		
+		
+
+			<div class="colors-list-header" id="MetaColors">
+				<h2>MetaColors</h2>
+			</div>
+			
+			<div class="colors-list-header" id="ChakraColors">
+				<h2>ChakraColors</h2>
+			</div>
         
-        <div class="colors-list-header" id="ChakraColors">
-            <h2>ChakraColors</h2>
-        </div>
-        
-    </div>
+		</div>
+		
+	</div>
+	
 
 
 <script>
@@ -86,16 +108,42 @@ function eachRecursive( obj, targetId ) {
 	
 	const target = document.getElementById( targetId );
 	target.insertAdjacentHTML("afterend", str);
-} 
+}
+
+/**
+ * A function to print the name, value, and an em value converted to px
+ * Expecting the obj to be passed in just-so
+ */
+function printTable(baseFontSize, title, obj, targetId) {
+	if(typeof baseFontSize == "NaN") {
+		console.error("Base font size needs to be a number");
+		return;			
+	}		
+	
+	let str = "<table><tr><th>"+title+"</th><th>em</th><th>px equiv</th></tr>";
+	
+	for ( const [key, val] of Object.entries(obj) ) {
+		
+		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>"+baseFontSize * parseInt(val)+"px</td></tr>";		
+	}
+	
+	str += "</table>";
+	
+	const target = document.getElementById( targetId );
+	target.insertAdjacentHTML("beforeend", str);
+	
+}
 
 </script>
 
 <script type="module">
 /**
- * Import the colors
+ * Import the colors etc
  */
 import { metaColors } from "./js/MetaColors.js";
 import { chakraColors } from "./js/ChakraColors.js";
+import { metaBreakpoints } from "./js/MetaBreakpoints.js";
+import { metaFontSizes } from "./js/MetaFontSizes.js";
 
 /**
  * Print the colors when the DOM is ready
@@ -109,6 +157,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Print the ChakraColors
 	// inserted in the HTML after an element with id="ChakraColors"
 	eachRecursive( chakraColors, "ChakraColors" );
+	
+	
+	// Print the breakpoints, based on X base font size
+	const baseFontSize = 16;
+		
+	printTable(baseFontSize, "Breakpoints", metaBreakpoints, "MetaBreakpoints");
+	
+	printTable(baseFontSize, "Font sizes", metaFontSizes, "MetaFontSizes");
+	
+	
     
 }, false);
 </script>

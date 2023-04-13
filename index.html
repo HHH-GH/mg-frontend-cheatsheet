@@ -135,7 +135,7 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 		return;			
 	}		
 	
-	let str = "<table><tr><th>"+title+"</th><th>em</th><th>px equiv</th></tr>";
+	let str = "<table><tr><th>"+title+"</th><th>em</th><th>px equiv.</th></tr>";
 	
 	for ( const [key, val] of Object.entries(obj) ) {
 		
@@ -153,13 +153,24 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
  * A function to print the name, value
  * Expecting the obj to be passed in just-so
  */
- function printTable(obj, targetId) {
+ function printTable(baseFontSize, obj, targetId) {
 	
-	let str = "<table><tr><th>Name</th><th>Value</th></tr>";
+	if(typeof baseFontSize == "NaN") {
+		console.error("Base font size needs to be a number");
+		return;			
+	}
+	
+	let str = "<table><tr><th>Name</th><th>Value</th><th>px equiv.</th></tr>";
 	
 	for ( const [key, val] of Object.entries(obj) ) {
 		
-		str += "<tr><td>"+key+"</td><td>"+val+"</td></tr>";		
+		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>";
+		// Try to put in a px equiv if rem is found in the last three chars of the val
+		//console.log(val.slice(val.length, -3))
+		console.log(val.slice(-3));
+		str += (val.slice(-3) === "rem") ? baseFontSize * parseInt(val)+"px" : "-";
+		
+		str += "</td></tr>";		
 	}
 	
 	str += "</table>";
@@ -202,9 +213,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	printTableWithEm(baseFontSize, "Font sizes", metaFontSizes, "MetaFontSizes");
 
-	printTable(chakraSizes, "ChakraWidths");
+	printTable(baseFontSize, chakraSizes, "ChakraWidths");
 	
-	printTable(chakraSizes, "ChakraSpacings");
+	printTable(baseFontSize, chakraSizes, "ChakraSpacings");
 	
 	
     

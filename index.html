@@ -12,26 +12,14 @@
     <h1>What's the idea</h1>
 
     <ul>
-        <li>Refer to this when using <a href="#MetaBreakpoints">breakpoints</a> / <a href="#MetaFontSizes">font-sizes</a> / <a href="#ChakraWidths">widths</a> / <a href="#ChakraSpacings">spacings</a> /<a href="#colors">colours</a> in frontend dev</li>
+        <li>
+			Refer to this when using <a href="#MetaBreakpoints">breakpoints</a> / <a href="#MetaFontSizes">font-sizes</a> / <a href="#ChakraWidths">widths</a> / <a href="#ChakraSpacings">spacings</a> / <a href="#colors">colours</a> in frontend dev
+		</li>
+		<li>
+			Last updated April 13, 2023
+		 </li>
     </ul>
-    
-    <h2>Notes</h2>
-    <ul>
-        <li>MetaColors override ChakraColors e.g. the pinks are different</li>
-        <li>Use the colour names in the Chakra component props e.g. <code>bgColor="pink.500"</code></li>
-        <li>The colours are also available for use as CSS variables<br>e.g. 
-            <ul>
-            <li><code>pink.500</code> equals <code>--chakra-colors-pink-500</code></li>
-            <li><code>purpleTag70</code> equals <code>--chakra-colors-purpleTag70</code></li>
-            </ul>
-        </li>
-	<li>
-	    Last updated April 13, 2023
-	 </li>
-   </ul>
-		
-    </ul>
-
+   
 	<!-- breakpoints and fonts are in https://github.com/MetaFam/TheGame/blob/develop/packages/design-system/src/theme/index.ts -->
 
 	<div class="basic-wrapper" id="MetaBreakpoints">
@@ -41,16 +29,41 @@
 
 	<div class="basic-wrapper" id="MetaFontSizes">
 		<h1>Font sizes</h1>
+		<h2>Notes on font sizes</h2>
+		<ul>
+			<li>The spacings are also available for use as CSS variables<br>e.g. 
+				<ul>
+					<li><code>2xl</code> equals <code>--chakra-fontSizes-2xl</code></li>
+				</ul>
+			</li>
+	    </ul>
 		
 	</div>
 
 	<div class="basic-wrapper" id="ChakraWidths">
 		<h1>Widths</h1>
+		<h2>Notes on widths</h2>
+		<ul>
+			<li>The widths are also available for use as CSS variables<br>e.g. 
+				<ul>
+					<li><code>3xs</code> equals <code>--chakra-sizes-3xs</code></li>
+					<li><code>max</code> equals <code>--chakra-sizes-max</code></li>
+				</ul>
+			</li>
+	    </ul>
 		
 	</div>
 	
 	<div class="basic-wrapper" id="ChakraSpacings">
 		<h1>Spacings and padding</h1>
+		<h2>Notes on spacings and paddings</h2>
+		<ul>
+			<li>The spacings are also available for use as CSS variables<br>e.g. 
+				<ul>
+					<li><code>4</code> equals <code>--chakra-space-4</code></li>
+				</ul>
+			</li>
+	    </ul>
 		
 	</div>
 	
@@ -58,6 +71,18 @@
 	<div class="basic-wrapper" id="colors">
     
 		<h1>Colours</h1>
+		<h2>Notes on colours</h2>
+		<ul>
+			<li>MetaColors override ChakraColors e.g. the pinks are different</li>
+			<li>Use the colour names in the Chakra component props e.g. <code>bgColor="pink.500"</code></li>
+			<li>The colours are also available for use as CSS variables<br>e.g. 
+				<ul>
+					<li><code>pink.500</code> equals <code>--chakra-colors-pink-500</code></li>
+					<li><code>purpleTag70</code> equals <code>--chakra-colors-purpleTag70</code></li>
+				</ul>
+			</li>
+	    </ul>
+		
 				
 		<button id="toggleButton" onClick="toggleColors();">Flip colours light/dark</button>
 			
@@ -68,6 +93,7 @@
 
 			<div class="colors-list-header" id="MetaColors">
 				<h2>MetaColors</h2>
+				
 			</div>
 			
 			<div class="colors-list-header" id="ChakraColors">
@@ -168,7 +194,13 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 		
 		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>";
 		// Try to put in a px equiv if rem is found in the last three chars of the val		
-		str += (val.slice(-3) === "rem") ? baseFontSize * parseInt(val)+"px" : "-";
+		if( val.slice(-3) === "rem" ) {
+			str += baseFontSize * parseFloat(val);
+			str += "px";
+		} else {
+			str += "-";
+		}
+		//str += (val.slice(-3) === "rem") ? baseFontSize * parseInt(val)+"px" : "-";
 		
 		str += "</td></tr>";		
 	}
@@ -215,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	printTable(baseFontSize, chakraSizes, "ChakraWidths");
 	
-	printTable(baseFontSize, chakraSizes, "ChakraSpacings");
+	printTable(baseFontSize, chakraSpacing, "ChakraSpacings");
 	
 	
     

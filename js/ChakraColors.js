@@ -1,5 +1,5 @@
 /**
- * Copy in the colors block from https://github.com/MetaFam/TheGame/tree/develop/packages/design-system/src/theme/colors.ts
+ * Copy in the colors block from https://github.com/chakra-ui/chakra-ui/blob/main/packages/components/theme/src/foundations/colors.ts
  * Comment out or delete the ...baseTheme.colors line
  * Should start with export const ChakraColors
  */

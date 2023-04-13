@@ -138,8 +138,10 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 	let str = "<table><tr><th>"+title+"</th><th>em</th><th>px equiv.</th></tr>";
 	
 	for ( const [key, val] of Object.entries(obj) ) {
-		
-		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>"+baseFontSize * parseInt(val)+"px</td></tr>";		
+		console.log(parseFloat(val)*baseFontSize);
+		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>";
+		str += baseFontSize * parseFloat(val);
+		str += "px</td></tr>";		
 	}
 	
 	str += "</table>";
@@ -165,9 +167,7 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 	for ( const [key, val] of Object.entries(obj) ) {
 		
 		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>";
-		// Try to put in a px equiv if rem is found in the last three chars of the val
-		//console.log(val.slice(val.length, -3))
-		console.log(val.slice(-3));
+		// Try to put in a px equiv if rem is found in the last three chars of the val		
 		str += (val.slice(-3) === "rem") ? baseFontSize * parseInt(val)+"px" : "-";
 		
 		str += "</td></tr>";		

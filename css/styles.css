@@ -97,6 +97,7 @@ h2 {
 
 table {
 	border-collapse: collapse;
+	margin-bottom: 1rem;
 }
 
 table tr:nth-child(even) td {

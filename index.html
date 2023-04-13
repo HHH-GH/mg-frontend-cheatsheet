@@ -43,6 +43,16 @@
 		<h1>Font sizes</h1>
 		
 	</div>
+
+	<div class="basic-wrapper" id="ChakraWidths">
+		<h1>Widths</h1>
+		
+	</div>
+	
+	<div class="basic-wrapper" id="ChakraSpacings">
+		<h1>Spacings and padding</h1>
+		
+	</div>
 	
 
 	<div class="basic-wrapper" id="colors">
@@ -119,7 +129,7 @@ function eachRecursive( obj, targetId ) {
  * A function to print the name, value, and an em value converted to px
  * Expecting the obj to be passed in just-so
  */
-function printTable(baseFontSize, title, obj, targetId) {
+function printTableWithEm(baseFontSize, title, obj, targetId) {
 	if(typeof baseFontSize == "NaN") {
 		console.error("Base font size needs to be a number");
 		return;			
@@ -139,6 +149,26 @@ function printTable(baseFontSize, title, obj, targetId) {
 	
 }
 
+/**
+ * A function to print the name, value
+ * Expecting the obj to be passed in just-so
+ */
+ function printTable(obj, targetId) {
+	
+	let str = "<table><tr><th>Name</th><th>Value</th></tr>";
+	
+	for ( const [key, val] of Object.entries(obj) ) {
+		
+		str += "<tr><td>"+key+"</td><td>"+val+"</td></tr>";		
+	}
+	
+	str += "</table>";
+	
+	const target = document.getElementById( targetId );
+	target.insertAdjacentHTML("beforeend", str);
+	
+}
+
 </script>
 
 <script type="module">
@@ -149,6 +179,7 @@ import { metaColors } from "./js/MetaColors.js";
 import { chakraColors } from "./js/ChakraColors.js";
 import { metaBreakpoints } from "./js/MetaBreakpoints.js";
 import { metaFontSizes } from "./js/MetaFontSizes.js";
+import { spacing as chakraSpacing, largeSizes as chakraSizes  } from "./js/ChakraSizes.js";
 
 /**
  * Print the colors when the DOM is ready
@@ -167,9 +198,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Print the breakpoints, based on X base font size
 	const baseFontSize = 16;
 		
-	printTable(baseFontSize, "Breakpoints", metaBreakpoints, "MetaBreakpoints");
+	printTableWithEm(baseFontSize, "Breakpoints", metaBreakpoints, "MetaBreakpoints");
 	
-	printTable(baseFontSize, "Font sizes", metaFontSizes, "MetaFontSizes");
+	printTableWithEm(baseFontSize, "Font sizes", metaFontSizes, "MetaFontSizes");
+
+	printTable(chakraSizes, "ChakraWidths");
+	
+	printTable(chakraSizes, "ChakraSpacings");
 	
 	
     

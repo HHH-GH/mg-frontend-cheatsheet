@@ -16,15 +16,13 @@
 			Refer to this when using <a href="#MetaBreakpoints">breakpoints</a> / <a href="#MetaFontSizes">font-sizes</a> / <a href="#ChakraWidths">widths</a> / <a href="#ChakraSpacings">spacings</a> / <a href="#colors">colours</a> in frontend dev
 		</li>
 		<li>
-			Last updated April 13, 2023
+			Last updated April 14, 2023
 		 </li>
     </ul>
    
-	<!-- breakpoints and fonts are in https://github.com/MetaFam/TheGame/blob/develop/packages/design-system/src/theme/index.ts -->
-
 	<div class="basic-wrapper" id="MetaBreakpoints">
 		<h1>Breakpoints</h1>
-		
+		<!-- filled in by a function, see below -->
 	</div>
 
 	<div class="basic-wrapper" id="MetaFontSizes">
@@ -37,7 +35,7 @@
 				</ul>
 			</li>
 	    </ul>
-		
+		<!-- filled in by a function, see below -->
 	</div>
 
 	<div class="basic-wrapper" id="ChakraWidths">
@@ -51,7 +49,7 @@
 				</ul>
 			</li>
 	    </ul>
-		
+		<!-- filled in by a function, see below -->
 	</div>
 	
 	<div class="basic-wrapper" id="ChakraSpacings">
@@ -64,7 +62,7 @@
 				</ul>
 			</li>
 	    </ul>
-		
+		<!-- filled in by a function, see below -->
 	</div>
 	
 
@@ -93,11 +91,12 @@
 
 			<div class="colors-list-header" id="MetaColors">
 				<h2>MetaColors</h2>
-				
+				<!-- filled in by a function, see below -->
 			</div>
 			
 			<div class="colors-list-header" id="ChakraColors">
 				<h2>ChakraColors</h2>
+				<!-- filled in by a function, see below -->
 			</div>
         
 		</div>
@@ -152,7 +151,8 @@ function eachRecursive( obj, targetId ) {
 }
 
 /**
- * A function to print the name, value, and an em value converted to px
+ * A function to print a table with the name, value, 
+ * and an em value converted to px
  * Expecting the obj to be passed in just-so
  */
 function printTableWithEm(baseFontSize, title, obj, targetId) {
@@ -164,7 +164,7 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 	let str = "<table><tr><th>"+title+"</th><th>em</th><th>px equiv.</th></tr>";
 	
 	for ( const [key, val] of Object.entries(obj) ) {
-		console.log(parseFloat(val)*baseFontSize);
+		
 		str += "<tr><td>"+key+"</td><td>"+val+"</td><td>";
 		str += baseFontSize * parseFloat(val);
 		str += "px</td></tr>";		
@@ -178,7 +178,8 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 }
 
 /**
- * A function to print the name, value
+ * A function to print the name, value in a tble
+ * Will print an px equivalent of em values if possible
  * Expecting the obj to be passed in just-so
  */
  function printTable(baseFontSize, obj, targetId) {
@@ -199,8 +200,7 @@ function printTableWithEm(baseFontSize, title, obj, targetId) {
 			str += "px";
 		} else {
 			str += "-";
-		}
-		//str += (val.slice(-3) === "rem") ? baseFontSize * parseInt(val)+"px" : "-";
+		}		
 		
 		str += "</td></tr>";		
 	}
@@ -222,13 +222,23 @@ import { metaColors } from "./js/MetaColors.js";
 import { chakraColors } from "./js/ChakraColors.js";
 import { metaBreakpoints } from "./js/MetaBreakpoints.js";
 import { metaFontSizes } from "./js/MetaFontSizes.js";
-import { spacing as chakraSpacing, largeSizes as chakraSizes  } from "./js/ChakraSizes.js";
+import { spacing as chakraSpacing, largeSizes as chakraSizes } from "./js/ChakraSizes.js";
 
 /**
- * Print the colors when the DOM is ready
+ * Print the tables when the DOM is ready
  * https://stackoverflow.com/questions/4842590/how-to-run-a-function-when-the-page-is-loaded
+ * https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
  */
 document.addEventListener('DOMContentLoaded', function() {
+	
+	// Print the breakpoints, font sizes, widths, and spacings based on X base font size
+	const baseFontSize = 16;
+		
+	printTableWithEm( baseFontSize, "Breakpoints", metaBreakpoints, "MetaBreakpoints" );
+	printTableWithEm( baseFontSize, "Font sizes", metaFontSizes, "MetaFontSizes" );
+	printTable( baseFontSize, chakraSizes, "ChakraWidths" );
+	printTable( baseFontSize, chakraSpacing, "ChakraSpacings" );	
+
 	// Print the MetaColors
 	// inserted in the HTML after an element with id="MetaColors"
 	eachRecursive( metaColors, "MetaColors" );
@@ -236,19 +246,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Print the ChakraColors
 	// inserted in the HTML after an element with id="ChakraColors"
 	eachRecursive( chakraColors, "ChakraColors" );
-	
-	
-	// Print the breakpoints, based on X base font size
-	const baseFontSize = 16;
-		
-	printTableWithEm(baseFontSize, "Breakpoints", metaBreakpoints, "MetaBreakpoints");
-	
-	printTableWithEm(baseFontSize, "Font sizes", metaFontSizes, "MetaFontSizes");
-
-	printTable(baseFontSize, chakraSizes, "ChakraWidths");
-	
-	printTable(baseFontSize, chakraSpacing, "ChakraSpacings");
-	
 	
     
 }, false);

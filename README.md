@@ -1,5 +1,6 @@
 # mg-frontend-cheatsheet
-Helpful things for MetaGame builders
+Helpful things for MetaGame builders  
+View it at [mg-frontend-cheatsheet.vercel.app](https://mg-frontend-cheatsheet.vercel.app/)
 
 ## What
 - Print out all the name colours used in the design system so they can be copy-pasted ✔

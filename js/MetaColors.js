@@ -4,7 +4,7 @@
  * Should start with export const MetaColors
  */
 
- export const MetaColors = {
+ export const metaColors = {
   //...baseTheme.colors,
   diamond: '#40e8ec',
   platinum: '#81b6e3',

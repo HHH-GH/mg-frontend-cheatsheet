@@ -16,7 +16,7 @@
 			Refer to this when using <a href="#MetaBreakpoints">breakpoints</a> / <a href="#MetaFontSizes">font-sizes</a> / <a href="#ChakraWidths">widths</a> / <a href="#ChakraSpacings">spacings</a> / <a href="#colors">colours</a> in frontend dev
 		</li>
 		<li>
-			Last updated April 14, 2023
+			Last updated January 2, 2024
 		 </li>
     </ul>
    
@@ -29,9 +29,9 @@
 		<h1>Font sizes</h1>
 		<h2>Notes on font sizes</h2>
 		<ul>
-			<li>The spacings are also available for use as CSS variables<br>e.g. 
+			<li>The sizes are also available for use as CSS variables<br>e.g. 
 				<ul>
-					<li><code>2xl</code> equals <code>--chakra-fontSizes-2xl</code></li>
+					<li><code>2xl</code> equals <code>var(--chakra-fontSizes-2xl)</code></li>
 				</ul>
 			</li>
 	    </ul>
@@ -44,8 +44,8 @@
 		<ul>
 			<li>The widths are also available for use as CSS variables<br>e.g. 
 				<ul>
-					<li><code>3xs</code> equals <code>--chakra-sizes-3xs</code></li>
-					<li><code>max</code> equals <code>--chakra-sizes-max</code></li>
+					<li><code>3xs</code> equals <code>var(--chakra-sizes-3xs)</code></li>
+					<li><code>max</code> equals <code>var(--chakra-sizes-max)</code></li>
 				</ul>
 			</li>
 	    </ul>
@@ -58,7 +58,7 @@
 		<ul>
 			<li>The spacings are also available for use as CSS variables<br>e.g. 
 				<ul>
-					<li><code>4</code> equals <code>--chakra-space-4</code></li>
+					<li><code>4</code> equals <code>var(--chakra-space-4)</code></li>
 				</ul>
 			</li>
 	    </ul>
@@ -75,8 +75,8 @@
 			<li>Use the colour names in the Chakra component props e.g. <code>bgColor="pink.500"</code></li>
 			<li>The colours are also available for use as CSS variables<br>e.g. 
 				<ul>
-					<li><code>pink.500</code> equals <code>--chakra-colors-pink-500</code></li>
-					<li><code>purpleTag70</code> equals <code>--chakra-colors-purpleTag70</code></li>
+					<li><code>color: pink.500;</code> equals <code>color: var(--chakra-colors-pink-500);</code></li>
+					<li><code>color: purpleTag70;</code> equals <code>color: var(--chakra-colors-purpleTag70);</code></li>
 				</ul>
 			</li>
 	    </ul>

@@ -2,6 +2,9 @@
 Helpful things for MetaGame builders  
 View it at [mg-frontend-cheatsheet.vercel.app](https://mg-frontend-cheatsheet.vercel.app/)
 
+## Oh no
+- MetaGame is no longer a thing, so this doesn't actually have any use now  https://metagame.substack.com/p/metagame-is-dead-long-live-metagame
+
 ## What
 - Print out all the breakpoints and font sizes and widths and spacings and paddings  ✔
 - Print out all the named colours used in the design system so they can be copy-pasted ✔
